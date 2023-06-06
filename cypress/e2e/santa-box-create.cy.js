@@ -117,8 +117,8 @@ describe("user can create a box and run it", () => {
   it("tossBox", () => {
     cy.visit("/login");
     cy.login(users.userAutor.email, users.userAutor.password);
-    cy.contains("Коробки").click();
-    cy.get(":nth-child(1) > a.base--clickable > .user-card").last().click();
+    cy.contains("Коробки").click({ force: true });
+    cy.get("a.base--clickable > .user-card").last().click({ force: true });
     cy.contains("Перейти к жеребьевке").click();
     cy.contains("Провести жеребьевку").click({ force: true });
     cy.contains("Да, провести жеребьевку").click({ force: true });
