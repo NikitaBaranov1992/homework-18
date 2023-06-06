@@ -1,6 +1,0 @@
-{
-  "boxOne": ":.layout-1__header-wrapper-fixed > .layout-1__header > .header > .header__items >.header-item > .header-item__text > .txt--med",
-  "boxTwo": ":nth-child(1) > a.base--clickable > .user-card",
-  "boxoThree": ".layout-1__header-wrapper-fixed > .layout-1__header-secondary > .header-secondary > .header-secondary__right-item > .toggle-menu-wrapper > .toggle-menu-button > .toggle-menu-button--inner",
-  "boxFour": ":nth-child(2) > .form-page-group__main > .frm-wrapper > .frm"
-}

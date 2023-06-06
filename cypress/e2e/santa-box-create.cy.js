@@ -5,7 +5,6 @@ const dashboardPage = require("../fixtures/pages/dashboardPage.json");
 const invitePage = require("../fixtures/pages/invitePage.json");
 const inviteeBoxPage = require("../fixtures/pages/inviteeBoxPage.json");
 const inviteeDashboardPage = require("../fixtures/pages/inviteeDashboardPage.json");
-//const delBox = require("../fixtures/pages/boxDel.json");
 
 import { faker } from "@faker-js/faker";
 
@@ -115,20 +114,21 @@ describe("user can create a box and run it", () => {
     cy.clearCookies();
   });
 
-  /* it("tossBox", () => {
+  it("tossBox", () => {
     cy.visit("/login");
     cy.login(users.userAutor.email, users.userAutor.password);
-    cy.get(".toggle-menu-item--active > .txt--med").click();
-    cy.get(newBoxName).click();
-    cy.get("a > .txt-secondary--med").click();
-  });*/
+    cy.contains("Коробки").click();
+    cy.get(":nth-child(1) > a.base--clickable > .user-card").last().click();
+    cy.contains("Перейти к жеребьевке").click();
+    cy.contains("Провести жеребьевку").click({ force: true });
+    cy.contains("Да, провести жеребьевку").click({ force: true });
+    cy.contains("Жеребьевка проведена").should("exist");
+  });
 
-  after("delete box", () => {
+  /*after("delete box", () => {
     cy.visit("/login");
     cy.login(users.userAutor.email, users.userAutor.password);
-    cy.get(
-      '.layout-1__header-wrapper-fixed > .layout-1__header > .header > .header__items > .layout-row-start > [href="/account/boxes"] > .header-item > .header-item__text > .txt--med'
-    ).click();
+    cy.get(general.boxes).click();
     cy.get(":nth-child(1) > a.base--clickable > .user-card").first().click();
     cy.get(
       ".layout-1__header-wrapper-fixed > .layout-1__header-secondary > .header-secondary > .header-secondary__right-item > .toggle-menu-wrapper > .toggle-menu-button > .toggle-menu-button--inner"
@@ -138,5 +138,5 @@ describe("user can create a box and run it", () => {
       "Удалить коробку"
     );
     cy.get(".btn-service").click();
-  });
+  });*/
 });
