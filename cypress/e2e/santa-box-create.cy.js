@@ -21,16 +21,20 @@ describe("user can create a box and run it", () => {
   //пользователь 1 логинится
   //пользователь 1 запускает жеребьевку
   let newBoxName = faker.word.noun({ length: { min: 5, max: 10 } });
+  let boxId = faker.word.noun({ length: { min: 7, max: 8 } });
   let wishes = faker.word.noun() + faker.word.adverb() + faker.word.adjective();
   let maxAmount = 50;
   let currency = "Евро";
   let inviteLink;
+  let baseUrl = "https://santa-secret.ru/";
 
   it("user logins and create a box", () => {
     cy.visit("/login");
     cy.login(users.userAutor.email, users.userAutor.password);
     cy.contains("Создать коробку").click();
     cy.get(boxPage.boxNameField).type(newBoxName);
+    cy.get(":nth-child(3) > .frm").clear().type(boxId);
+    //cy.get(":nth-child(3) > .frm").type(boxId);
     cy.get(generalElements.arrowRight).click();
     cy.get(boxPage.sixthIcon).click();
     cy.get(generalElements.arrowRight).click();
@@ -118,25 +122,21 @@ describe("user can create a box and run it", () => {
     cy.visit("/login");
     cy.login(users.userAutor.email, users.userAutor.password);
     cy.contains("Коробки").click({ force: true });
-    cy.get("a.base--clickable > .user-card").last().click({ force: true });
-    cy.contains("Перейти к жеребьевке").click();
+    cy.get(generalElements.random).last().click({ force: true });
+    cy.get(".txt-secondary").click({ force: true });
+    //cy.contains("Перейти к жеребьевке").click();
     cy.contains("Провести жеребьевку").click({ force: true });
     cy.contains("Да, провести жеребьевку").click({ force: true });
     cy.contains("Жеребьевка проведена").should("exist");
+    cy.clearCookies();
   });
 
-  /*after("delete box", () => {
-    cy.visit("/login");
-    cy.login(users.userAutor.email, users.userAutor.password);
-    cy.get(general.boxes).click();
-    cy.get(":nth-child(1) > a.base--clickable > .user-card").first().click();
-    cy.get(
-      ".layout-1__header-wrapper-fixed > .layout-1__header-secondary > .header-secondary > .header-secondary__right-item > .toggle-menu-wrapper > .toggle-menu-button > .toggle-menu-button--inner"
-    ).click();
-    cy.contains("Архивация и удаление").click({ force: true });
-    cy.get(":nth-child(2) > .form-page-group__main > .frm-wrapper > .frm").type(
-      "Удалить коробку"
-    );
-    cy.get(".btn-service").click();
-  });*/
+  after("delete box", () => {
+    cy.request({
+      method: "DELETE",
+      url: baseUrl + "api/box/" + boxId,
+    }).should((response) => {
+      expect(response.status).to.eq(200);
+    });
+  });
 });
