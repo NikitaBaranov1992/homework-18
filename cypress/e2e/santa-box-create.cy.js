@@ -140,9 +140,3 @@ describe("user can create a box and run it", () => {
     });
   });
 });
-/*Examples:
-            | login               | password       |
-            | 4932843@gmail.com   | GoodPassword10 |
-            | 4932843+2@gmail.com | GoodPassword10 |
-            | 4932843+3@gmail.com | GoodPassword10 |
-            | 4932843+4@gmail.com | GoodPassword10 |*/
