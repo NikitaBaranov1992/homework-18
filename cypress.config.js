@@ -9,11 +9,17 @@ module.exports = defineConfig({
   e2e: {
     //baseUrl: "https://staging.lpitko.ru",
     baseUrl: "https://santa-secret.ru/",
-    specPattern: "**/*.feature",
-
     testIsolation: false,
+    specPattern: "**/*.feature",
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      const bundler = createBundler({
+        plugins: [createEsbuildPlugin(config)],
+      });
+
+      on("file:preprocessor", bundler);
+      addCucumberPreprocessorPlugin(on, config);
+
+      return config;
     },
   },
 });
